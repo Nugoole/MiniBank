@@ -5,7 +5,8 @@
 class HighCreditAccount : public BankAccount
 {
 private:
-	double RoI;
+	double RoI = BASIC_ROI;
+	double additional_RoI;
 	int first_deposits;
 	int interest;
 

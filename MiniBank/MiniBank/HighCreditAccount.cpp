@@ -1,16 +1,17 @@
 #include "HighCreditAccount.h"
 
 HighCreditAccount::HighCreditAccount(const char * name, int money, int ID, int Credit_Level)
-	:BankAccount(name, money, ID), first_deposits(money), RoI((double)(Credit_Level / 100)), interest(0) {}
+	:BankAccount(name, money, ID), first_deposits(money), additional_RoI(Credit_Level), interest(0) {}
 
 void HighCreditAccount::printNowRoI() const {
-	cout << "현재 이자는 " << (BankAccount::GetDeposits() - first_deposits) * RoI << "원 입니다. " << endl;
+	cout << "현재 이자는 " << interest << "원 입니다. " << endl;
 }
 
 void HighCreditAccount::DepositsMoney(int value)
 {
 	BankAccount::DepositsMoney(value);
-	interest += (int)(value * RoI);
+	interest += (int)(value * ((double)(additional_RoI/100) + RoI/100));
+	cout << interest << endl;
 }
 
 void HighCreditAccount::withdrawMoney(int value)
@@ -23,9 +24,9 @@ void HighCreditAccount::withdrawMoney(int value)
 
 char HighCreditAccount::getCreditLevel() const
 {
-	if (RoI == (double)(LEVEL_A / 100))
+	if (additional_RoI == LEVEL_A)
 		return 'A';
-	else if (RoI == (double)(LEVEL_B / 100))
+	else if (additional_RoI == LEVEL_B)
 		return 'B';
 	else
 		return 'C';

@@ -6,7 +6,7 @@
 class NormalAccount : public BankAccount
 {
 private:
-	int RoI = 0.3;
+	double RoI = BASIC_ROI;
 	int interest;
 
 public:

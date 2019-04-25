@@ -26,8 +26,8 @@ void AccountHandler::AddAccount()
 		cout << "예금주 이름을 입력해주세요";
 		cin >> name;
 
-		NormalAccount * temp = new NormalAccount(name, deposit, AccountNum);
-		acc[accNum] = (BankAccount *)temp;
+		
+		acc[accNum] = new NormalAccount(name, deposit, AccountNum);
 
 		cout << "============계좌 개설 완료==============" << endl;
 		cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
@@ -41,7 +41,7 @@ void AccountHandler::AddAccount()
 		int AccountNum, deposit, RoI;
 		char credit_level;
 		char * name;
-
+		name = new char[30];
 		cout << "계좌 번호를 설정해주세요";
 		cin >> AccountNum;
 		cout << "예금하실 금액을 입력해주세요";
@@ -55,10 +55,11 @@ void AccountHandler::AddAccount()
 		if (credit_level == 'A' || credit_level == 'a')
 			RoI = LEVEL_A;
 		else if (credit_level == 'B' || credit_level == 'b')
-			credit_level = LEVEL_B;
+			RoI = LEVEL_B;
 		else if (credit_level == 'C' || credit_level == 'c')
-			credit_level = LEVEL_C;
+			RoI = LEVEL_C;
 
+		cout << RoI << endl;
 
 
 		acc[accNum] = new HighCreditAccount(name, deposit, AccountNum, RoI);
@@ -68,6 +69,8 @@ void AccountHandler::AddAccount()
 		cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
 		cout << "예금주명 : " << acc[accNum]->GetAccName() << endl;
 		cout << "신용등급 : " << acc[accNum]->getCreditLevel() << endl;
+
+		accNum++;
 	}
 }
 
@@ -105,7 +108,7 @@ void AccountHandler::depositMoney()
 void AccountHandler::withdrawMoney()
 {
 	int ID, with_money;
-	cout << "예금하실 계좌번호를 입력해주세요";
+	cout << "출금하실 계좌번호를 입력해주세요";
 	cin >> ID;
 
 	BankAccount * temp = findAcc(ID);
@@ -115,7 +118,7 @@ void AccountHandler::withdrawMoney()
 		return;
 	}
 
-	cout << "예금하실 금액을 입력해주세요. ";
+	cout << "출금하실 금액을 입력해주세요. ";
 	cin >> with_money;
 	if (temp->GetDeposits() < with_money)
 	{
@@ -123,10 +126,10 @@ void AccountHandler::withdrawMoney()
 		return;
 	}
 
-	temp->DepositsMoney(with_money);
+	temp->withdrawMoney(with_money);
 
-	cout << "=============예금 완료=================" << endl;
-	cout << "예금 후 잔액 : " << temp->GetDeposits() << endl;
+	cout << "=============출금 완료=================" << endl;
+	cout << "출금 후 잔액 : " << temp->GetDeposits() << endl;
 }
 
 int AccountHandler::GetAccNum()
@@ -140,6 +143,7 @@ void AccountHandler::ShowAllAccDeposits()
 	{
 		cout << acc[i]->GetAccName() << " 님의 ";
 		acc[i]->printDeposits();
+		acc[i]->printNowRoI();
 	}
 }
 
