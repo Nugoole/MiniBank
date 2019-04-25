@@ -139,10 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AccountHandler.cpp" />
+    <ClCompile Include="BankAccount.cpp" />
     <ClCompile Include="HighCreditAccount.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="NormalAccount.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccountHandler.h" />
     <ClInclude Include="BankAccount.h" />
     <ClInclude Include="HighCreditAccount.h" />
     <ClInclude Include="NormalAccount.h" />
