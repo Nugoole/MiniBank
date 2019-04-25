@@ -10,25 +10,13 @@ private:
 	int interest;
 
 public:
-	NormalAccount(const char * name, int money, int ID) :BankAccount(name, money, ID),interest(0) {}
+	NormalAccount(const char * name, int money, int ID);
 
-	void printNowRoI() const{
-		cout << "현재 이자는 " << BankAccount::GetDeposits() * RoI << "원 입니다." << endl;
-	}
+	void printNowRoI() const;
 
-	void DepositsMoney(int value)
-	{
-		BankAccount::DepositsMoney(value);
-		interest += (int)(value * RoI);
-	}
+	void DepositsMoney(int value);
 
-	void withdrawMoney(int value)
-	{
-		
-		BankAccount::withdrawMoney(value);
+	void withdrawMoney(int value);
 
-		cout << "출금 후 잔액 : " << BankAccount::GetDeposits() << endl;
-	}
-
-	virtual char getCreditLevel() const {};
+	virtual char getCreditLevel() const { return ' '; };
 };

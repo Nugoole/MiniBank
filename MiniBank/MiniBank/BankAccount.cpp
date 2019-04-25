@@ -1,9 +1,9 @@
 #include "BankAccount.h"
 
-BankAccount::BankAccount(const char * name = "ȫ�浿", int money = 0, int ID = 0) 
+BankAccount::BankAccount(const char * name, int money, int ID) 
 	:deposits(money), AccountNum(ID)
 {
-	name = new char[strlen(name) + 1];
+	this->name = new char[strlen(name) + 1];
 	strcpy(this->name, name);
 }
 

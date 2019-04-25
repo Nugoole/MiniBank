@@ -28,9 +28,6 @@ public:
 	virtual void printNowRoI() const = 0;
 	virtual char getCreditLevel() const = 0;
 
-	~BankAccount(){
-		cout << name << "¼Ò¸ê" << endl;
-		delete name;
-	}
+	~BankAccount();
 	
 };

@@ -15,6 +15,7 @@ public:
 
 	BankAccount * findAcc(int ID);
 	void depositMoney();
+	int GetAccNum();
 	void withdrawMoney();
 	void ShowAllAccDeposits();
 	~AccountHandler();

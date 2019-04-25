@@ -1,5 +1,9 @@
 #include "AccountHandler.h"
 
+
+AccountHandler::AccountHandler() :accNum(0) {}
+
+
 void AccountHandler::AddAccount()
 {
 	int select;
@@ -13,6 +17,7 @@ void AccountHandler::AddAccount()
 	{
 		int AccountNum, deposit;
 		char * name;
+		name = new char[30];
 
 		cout << "계좌 번호를 설정해주세요";
 		cin >> AccountNum;
@@ -21,12 +26,15 @@ void AccountHandler::AddAccount()
 		cout << "예금주 이름을 입력해주세요";
 		cin >> name;
 
-		acc[accNum] = new NormalAccount(name, deposit, AccountNum);
+		NormalAccount * temp = new NormalAccount(name, deposit, AccountNum);
+		acc[accNum] = (BankAccount *)temp;
 
 		cout << "============계좌 개설 완료==============" << endl;
 		cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
 		cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
 		cout << "예금주명 : " << acc[accNum]->GetAccName() << endl;
+
+		accNum++;
 	}
 	else if (select == CREDIT)
 	{
@@ -121,6 +129,10 @@ void AccountHandler::withdrawMoney()
 	cout << "예금 후 잔액 : " << temp->GetDeposits() << endl;
 }
 
+int AccountHandler::GetAccNum()
+{
+	return accNum;
+}
 
 void AccountHandler::ShowAllAccDeposits()
 {
