@@ -14,14 +14,6 @@ void HighCreditAccount::DepositsMoney(int value)
 	cout << interest << endl;
 }
 
-void HighCreditAccount::withdrawMoney(int value)
-{
-
-	BankAccount::withdrawMoney(value);
-
-	cout << "Ãâ±Ý ÈÄ ÀÜ¾× : " << BankAccount::GetDeposits() << endl;
-}
-
 char HighCreditAccount::getCreditLevel() const
 {
 	if (additional_RoI == LEVEL_A)

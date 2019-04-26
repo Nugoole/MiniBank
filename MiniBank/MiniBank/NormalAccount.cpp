@@ -12,11 +12,3 @@ void NormalAccount::DepositsMoney(int value)
 	interest += (int)(value * RoI/100);
 	cout << interest << endl;
 }
-
-void NormalAccount::withdrawMoney(int value)
-{
-
-	BankAccount::withdrawMoney(value);
-
-	cout << "Ãâ±Ý ÈÄ ÀÜ¾× : " << BankAccount::GetDeposits() << endl;
-}

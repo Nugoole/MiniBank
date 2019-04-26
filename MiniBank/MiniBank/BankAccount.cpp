@@ -20,6 +20,7 @@ void BankAccount::DepositsMoney(int val)
 void BankAccount::withdrawMoney(int val)
 {
 	deposits -= val;
+	cout << "Ãâ±Ý ÈÄ ÀÜ¾× : " << deposits << endl;	
 }
 
 int BankAccount::GetAccID() {

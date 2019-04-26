@@ -149,6 +149,7 @@
     <ClInclude Include="AccountHandler.h" />
     <ClInclude Include="BankAccount.h" />
     <ClInclude Include="HighCreditAccount.h" />
+    <ClInclude Include="MinibankingCommon.h" />
     <ClInclude Include="NormalAccount.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

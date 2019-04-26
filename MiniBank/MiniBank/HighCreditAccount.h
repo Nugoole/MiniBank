@@ -17,7 +17,5 @@ public:
 
 	void DepositsMoney(int value);
 
-	void withdrawMoney(int value);
-
 	char getCreditLevel() const;
 };

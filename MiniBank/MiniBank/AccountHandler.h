@@ -2,7 +2,6 @@
 #include "NormalAccount.h"
 #include "HighCreditAccount.h"
 
-const int MAX_ACC_NUM = 100;
 class AccountHandler
 {
 private:
