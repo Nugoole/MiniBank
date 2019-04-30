@@ -5,10 +5,12 @@
 class AccountHandler
 {
 private:
-	BankAccount *acc[MAX_ACC_NUM];
+	BankAccount **acc;
 	int accNum;
 
 public:
+
+
 	AccountHandler();
 	void AddAccount();
 

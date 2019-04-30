@@ -6,6 +6,9 @@ enum { MAKE = 1, DEPOSIT, WITHDRAW, INQUIRE, EXIT};
 
 int main()
 {
+	using std::cout;
+	using std::cin;
+
 	AccountHandler *handler = new AccountHandler;
 	int select;
 
@@ -44,6 +47,8 @@ int main()
 }
 
 void ShowMenu(void) {
+	using std::cout;
+	using std::cin;
 
 	system("cls");
 	cout << "-----------Menu-------------" << endl;

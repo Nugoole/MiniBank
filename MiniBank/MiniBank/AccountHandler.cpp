@@ -1,11 +1,14 @@
 #include "AccountHandler.h"
 
 
-AccountHandler::AccountHandler() :accNum(0) {}
-
+AccountHandler::AccountHandler() :accNum(0) {
+	acc = new BankAccount *[MAX_ACC_NUM];
+}
 
 void AccountHandler::AddAccount()
 {
+	
+
 	int select;
 
 	cout << "어떤 유형의 계좌를 개설하시겠습니까?" << endl;
@@ -26,13 +29,12 @@ void AccountHandler::AddAccount()
 		cout << "예금주 이름을 입력해주세요";
 		cin >> name;
 
-		
 		acc[accNum] = new NormalAccount(name, deposit, AccountNum);
 
 		cout << "============계좌 개설 완료==============" << endl;
 		cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
 		cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
-		cout << "예금주명 : " << acc[accNum]->GetAccName() << endl;
+		str::cout << "예금주명 : " << acc[accNum]->GetAccName() << str::endl;
 
 		accNum++;
 	}
@@ -61,13 +63,12 @@ void AccountHandler::AddAccount()
 
 		cout << RoI << endl;
 
-
 		acc[accNum] = new HighCreditAccount(name, deposit, AccountNum, RoI);
 
 		cout << "============계좌 개설 완료==============" << endl;
 		cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
 		cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
-		cout << "예금주명 : " << acc[accNum]->GetAccName() << endl;
+		str::cout << "예금주명 : " << acc[accNum]->GetAccName() << str::endl;
 		cout << "신용등급 : " << acc[accNum]->getCreditLevel() << endl;
 
 		accNum++;
@@ -86,6 +87,9 @@ BankAccount * AccountHandler::findAcc(int ID) {
 
 void AccountHandler::depositMoney()
 {
+	using std::cout;
+	using std::cin;
+
 	int ID, dep_money;
 	cout << "예금하실 계좌번호를 입력해주세요";
 	cin >> ID;
@@ -107,6 +111,9 @@ void AccountHandler::depositMoney()
 
 void AccountHandler::withdrawMoney()
 {
+	using std::cout;
+	using std::cin;
+
 	int ID, with_money;
 	cout << "출금하실 계좌번호를 입력해주세요";
 	cin >> ID;
@@ -141,7 +148,7 @@ void AccountHandler::ShowAllAccDeposits()
 {
 	for (int i = 0; i < accNum; i++)
 	{
-		cout << acc[i]->GetAccName() << " 님의 ";
+		str::cout << acc[i]->GetAccName() << " 님의 ";
 		acc[i]->printDeposits();
 		acc[i]->printNowRoI();
 	}
@@ -152,4 +159,6 @@ AccountHandler::~AccountHandler()
 {
 	for (int i = 0; i < accNum; i++)
 		delete acc[i];
+
+	delete[] acc;
 }

@@ -1,21 +1,24 @@
 #pragma once
 #include "MinibankingCommon.h"
+#include "String_make.h"
 
-class BankAccount
+
+
+class BankAccount : public str::String
 {
 private:	
-	char * name;
+	String name;
 	int deposits;
 	int AccountNum;
 	
 
 public:
-	BankAccount(const char * name = "ȫ�浿", int money = 0, int ID = 0);
+	BankAccount(const String& name = "ȫ�浿", int money = 0, int ID = 0);
 	int GetDeposits() const;
 	virtual void DepositsMoney(int val);
 	void withdrawMoney(int val);
 	int GetAccID();
-	char * GetAccName();
+	String& GetAccName();
 	void printDeposits() const;
 
 	virtual void printNowRoI() const = 0;

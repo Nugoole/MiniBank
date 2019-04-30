@@ -1,10 +1,9 @@
 #include "BankAccount.h"
 
-BankAccount::BankAccount(const char * name, int money, int ID) 
+BankAccount::BankAccount(const str::String& name, int money, int ID) 
 	:deposits(money), AccountNum(ID)
 {
-	this->name = new char[strlen(name) + 1];
-	strcpy(this->name, name);
+	this->name = name;
 }
 
 int BankAccount::GetDeposits() const
@@ -20,23 +19,22 @@ void BankAccount::DepositsMoney(int val)
 void BankAccount::withdrawMoney(int val)
 {
 	deposits -= val;
-	cout << "Ãâ±Ý ÈÄ ÀÜ¾× : " << deposits << endl;	
+	std::cout << "Ãâ±Ý ÈÄ ÀÜ¾× : " << deposits << endl;	
 }
 
 int BankAccount::GetAccID() {
 	return AccountNum;
 }
 
-char * BankAccount::GetAccName()
+str::String& BankAccount::GetAccName()
 {
 	return name;
 }
 void BankAccount::printDeposits() const
 {
-	cout << "ÀÜ¾×Àº " << deposits << " ¿ø ÀÔ´Ï´Ù." << endl;
+	std::cout << "ÀÜ¾×Àº " << deposits << " ¿ø ÀÔ´Ï´Ù." << endl;
 }
 
 BankAccount::~BankAccount() {
-	cout << name << "¼Ò¸ê" << endl;
-	delete name;
+	str::cout << name << "¼Ò¸ê" << str::endl;
 }
