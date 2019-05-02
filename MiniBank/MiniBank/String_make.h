@@ -29,7 +29,8 @@ public:
 
 	~String();
 
-
+	friend ostream& operator <<(ostream& ostm, const String& str);
+	friend istream& operator >> (istream& istm, String& str);
 };
 
 ostream& operator <<(ostream& ostm, const String& str);

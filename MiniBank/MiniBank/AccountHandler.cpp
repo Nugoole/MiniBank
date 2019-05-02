@@ -10,15 +10,36 @@ void AccountHandler::LoadAccountFromFile() {
 	ifstream file;
 	int accType, deposits, accNum;
 	String accName;
+	int accGrade;
 
 	file.open("accountList.txt");
 
 	if (file.fail())
-		std::cout << "파일 열기에 실패했습니다." << endl;
+		cout << "파일 열기에 실패했습니다." << endl;
 	else
 	{
-		file >> accType
-			>> accName;
+		file >> accType;
+		
+		//일반 계좌
+		if (accType == 1)
+		{
+			file >> accName
+				>> deposits
+				>> accNum;
+
+			acc[accNum] = new NormalAccount(accName, deposits, accNum);
+			accNum++;
+		}
+		else if (accType == 2)
+		{
+			file >> accName
+				>> deposits
+				>> accNum
+				>> accGrade;
+
+			acc[accNum] = new HighCreditAccount(accName, deposits, accNum, accGrade);
+			accNum++;
+		}
 	}
 }
 
@@ -54,17 +75,17 @@ void AccountHandler::AddAccount()
 				cin >> deposit;
 				rewind(stdin);
 				cout << "예금주 이름을 입력해주세요";
-				str::cin >> name;
+				cin >> name;
 
 				if (findAcc(AccountNum) != NULL)
 					throw AccNumException(AccountNum);
 
 				acc[accNum] = new NormalAccount(name, deposit, AccountNum);
-
+				cout << sizeof(*acc[accNum]);
 				cout << "============계좌 개설 완료==============" << endl;
 				cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
 				cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
-				str::cout << "예금주명 : " << acc[accNum]->GetAccName() << str::endl;
+				cout << "예금주명 : " << acc[accNum]->GetAccName() << endl;
 
 				accNum++;
 				break;
@@ -103,7 +124,7 @@ void AccountHandler::AddAccount()
 				cin >> deposit;
 				rewind(stdin);
 				cout << "예금주 이름을 입력해주세요";
-				str::cin >> name;
+				cin >> name;
 				cout << "현재 신용등급을 골라주세요" << endl;
 				cout << "[등급 목록 : A    B    C ]";
 				cin >> credit_level;
@@ -115,17 +136,16 @@ void AccountHandler::AddAccount()
 				else if (credit_level == 'C' || credit_level == 'c')
 					RoI = LEVEL_C;
 
-				cout << RoI << endl;
-
 				if (findAcc(AccountNum) != NULL)
 					throw AccNumException(AccountNum);
 
 				acc[accNum] = new HighCreditAccount(name, deposit, AccountNum, RoI);
+				cout << sizeof(*acc[accNum]);
 
 				cout << "============계좌 개설 완료==============" << endl;
 				cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
 				cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
-				str::cout << "예금주명 : " << acc[accNum]->GetAccName() << str::endl;
+				cout << "예금주명 : " << acc[accNum]->GetAccName() << endl;
 				cout << "신용등급 : " << acc[accNum]->getCreditLevel() << endl;
 
 				accNum++;
@@ -251,7 +271,7 @@ void AccountHandler::ShowAllAccDeposits()
 {
 	for (int i = 0; i < accNum; i++)
 	{
-		str::cout << acc[i]->GetAccName() << " 님의 ";
+		cout << acc[i]->GetAccName() << " 님의 ";
 		acc[i]->printDeposits();
 		acc[i]->printNowRoI();
 	}
@@ -260,8 +280,14 @@ void AccountHandler::ShowAllAccDeposits()
 
 AccountHandler::~AccountHandler()
 {
+
 	for (int i = 0; i < accNum; i++)
+	{
+		ofstream outFile;
+		outFile.open("accountList.txt", ofstream::in | ofstream::app);
+
 		delete acc[i];
+	}
 
 	delete[] acc;
 }

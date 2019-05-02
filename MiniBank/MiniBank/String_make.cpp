@@ -61,7 +61,7 @@ bool String::operator ==(const String& str)
 
 ostream& operator <<(ostream& ostm, const String& str)
 {
-	ostm << str;
+	ostm << str.str;
 	return ostm;
 }
 

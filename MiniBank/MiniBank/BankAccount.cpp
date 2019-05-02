@@ -36,7 +36,7 @@ int BankAccount::GetAccID() {
 	return AccountNum;
 }
 
-str::String& BankAccount::GetAccName()
+String& BankAccount::GetAccName()
 {
 	return name;
 }
@@ -46,5 +46,5 @@ void BankAccount::printDeposits() const
 }
 
 BankAccount::~BankAccount() {
-	str::cout << name << "¼Ò¸ê" << str::endl;
+	cout << name << "¼Ò¸ê" << endl;
 }

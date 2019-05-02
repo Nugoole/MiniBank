@@ -6,6 +6,7 @@ class WithdrawException
 {
 private:
 	int withdrawMoney;
+
 public:
 
 	WithdrawException(int money) :withdrawMoney(money) {}
