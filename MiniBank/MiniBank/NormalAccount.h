@@ -10,7 +10,7 @@ private:
 	int interest;
 
 public:
-	NormalAccount(const char * name, int money, int ID);
+	NormalAccount(const String name, int money, int ID);
 
 	void printNowRoI() const;
 

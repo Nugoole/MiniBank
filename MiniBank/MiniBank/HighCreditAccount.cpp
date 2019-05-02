@@ -1,6 +1,6 @@
 #include "HighCreditAccount.h"
 
-HighCreditAccount::HighCreditAccount(const char * name, int money, int ID, int Credit_Level)
+HighCreditAccount::HighCreditAccount(const String name, int money, int ID, int Credit_Level)
 	:BankAccount(name, money, ID), first_deposits(money), additional_RoI(Credit_Level), interest(0) {}
 
 void HighCreditAccount::printNowRoI() const {

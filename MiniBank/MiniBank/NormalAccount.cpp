@@ -1,6 +1,6 @@
 #include "NormalAccount.h"
 
-NormalAccount::NormalAccount(const char * name, int money, int ID) :BankAccount(name, money, ID), interest(0) {}
+NormalAccount::NormalAccount(const String name, int money, int ID) :BankAccount(name, money, ID), interest(0) {}
 
 void NormalAccount::printNowRoI() const {
 	std::cout << "현재 이자는 " << interest << "원 입니다." << endl;

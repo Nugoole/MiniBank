@@ -14,6 +14,7 @@ public:
 	AccountHandler();
 	void AddAccount();
 
+	BankAccount& operator[](int idx);
 	BankAccount * findAcc(int ID);
 	void depositMoney();
 	int GetAccNum();

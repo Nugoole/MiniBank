@@ -11,7 +11,7 @@ private:
 	int interest;
 
 public:
-	HighCreditAccount(const char * name, int money, int ID, int Credit_Level);
+	HighCreditAccount(const String name, int money, int ID, int Credit_Level);
 
 	void printNowRoI() const;
 

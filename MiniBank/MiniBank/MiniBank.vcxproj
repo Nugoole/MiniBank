@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="AccountHandler.h" />
     <ClInclude Include="BankAccount.h" />
+    <ClInclude Include="Exceptions.h" />
     <ClInclude Include="HighCreditAccount.h" />
     <ClInclude Include="MinibankingCommon.h" />
     <ClInclude Include="NormalAccount.h" />

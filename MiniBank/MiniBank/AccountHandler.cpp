@@ -7,7 +7,9 @@ AccountHandler::AccountHandler() :accNum(0) {
 
 void AccountHandler::AddAccount()
 {
-	
+	using std::cout;
+	using std::cin;
+	using std::endl;
 
 	int select;
 
@@ -42,14 +44,14 @@ void AccountHandler::AddAccount()
 	{
 		int AccountNum, deposit, RoI;
 		char credit_level;
-		char * name;
+		String name;
 		name = new char[30];
 		cout << "계좌 번호를 설정해주세요";
 		cin >> AccountNum;
 		cout << "예금하실 금액을 입력해주세요";
 		cin >> deposit;
 		cout << "예금주 이름을 입력해주세요";
-		cin >> name;
+		str::cin >> name;
 		cout << "현재 신용등급을 골라주세요" << endl;
 		cout << "[등급 목록 : A    B    C ]";
 		cin >> credit_level;
@@ -73,6 +75,15 @@ void AccountHandler::AddAccount()
 
 		accNum++;
 	}
+}
+
+BankAccount& AccountHandler::operator[](int idx)
+{
+	if (idx < 0 || idx >= accNum)
+	{
+		std::cout << "올바른 인덱스 값을 넣어주세요" << endl;
+	}
+	return *acc[idx];
 }
 
 

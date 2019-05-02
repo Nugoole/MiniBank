@@ -2,9 +2,9 @@
 #include "MinibankingCommon.h"
 #include "String_make.h"
 
+using namespace str;
 
-
-class BankAccount : public str::String
+class BankAccount
 {
 private:	
 	String name;
