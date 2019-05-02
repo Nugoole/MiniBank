@@ -1,45 +1,62 @@
 #include "AccountHandler.h"
 #include <fstream>
 
-
+//TODO : 파일 마지막에 입력할 때 이자 돈을 기본액에 추가해서 저장하기
 AccountHandler::AccountHandler() :accNum(0) {
 	acc = new BankAccount *[MAX_ACC_NUM];
 }
 
 void AccountHandler::LoadAccountFromFile() {
 	ifstream file;
-	int accType, deposits, accNum;
+	int accType, deposits, accNo;
 	String accName;
 	int accGrade;
 
-	file.open("accountList.txt");
+	file.open("C:/Users/jundo/source/repos/MiniBank/MiniBank/MiniBank/accountList.txt");
 
 	if (file.fail())
+	{
 		cout << "파일 열기에 실패했습니다." << endl;
+		getchar();
+	}
 	else
 	{
-		file >> accType;
-		
-		//일반 계좌
-		if (accType == 1)
-		{
-			file >> accName
-				>> deposits
-				>> accNum;
+		do {
+			file >> accType;
 
-			acc[accNum] = new NormalAccount(accName, deposits, accNum);
-			accNum++;
-		}
-		else if (accType == 2)
-		{
-			file >> accName
-				>> deposits
-				>> accNum
-				>> accGrade;
+			cout << accType;
+			getchar();
+			//일반 계좌
+			if (accType == 1)
+			{
+				file >> accName
+					>> deposits
+					>> accNo;
 
-			acc[accNum] = new HighCreditAccount(accName, deposits, accNum, accGrade);
-			accNum++;
-		}
+				cout << accName
+					<< deposits
+					<< accNo;
+				getchar();
+				acc[accNum] = new NormalAccount(accName, deposits, accNo);
+				accNum++;
+			}
+			else if (accType == 2)
+			{
+				file >> accName
+					>> deposits
+					>> accNo
+					>> accGrade;
+				cout << accName
+					<< deposits
+					<< accNo
+					<< accGrade;
+
+				getchar();
+				acc[accNum] = new HighCreditAccount(accName, deposits, accNo, accGrade);
+				accNum++;
+			}
+		} while (!file.eof());
+		file.close();
 	}
 }
 
@@ -280,14 +297,41 @@ void AccountHandler::ShowAllAccDeposits()
 
 AccountHandler::~AccountHandler()
 {
+	ofstream outFile;
+	outFile.open("accountList.txt", ofstream::in | ofstream::trunc);
 
 	for (int i = 0; i < accNum; i++)
 	{
-		ofstream outFile;
-		outFile.open("accountList.txt", ofstream::in | ofstream::app);
 
+		if (acc[i]->getCreditLevel() != 'D')
+		{
+			cout << acc[i]->GetAccName() << '\t'
+				<< acc[i]->GetDeposits() << '\t'
+				<< acc[i]->GetAccID() << '\t'
+				<< (int)((int)acc[i]->getCreditLevel() - 64) << '\n';
+
+			outFile << 2 << '\t'
+				<< acc[i]->GetAccName() << '\t'
+				<< acc[i]->GetDeposits() << '\t'
+				<< acc[i]->GetAccID() << '\t'
+				<< (int)((int)acc[i]->getCreditLevel() - 64);
+		}
+		else
+		{
+			cout << acc[i]->GetAccName() << '\t'
+				<< acc[i]->GetDeposits() << '\t'
+				<< acc[i]->GetAccID() << '\t'
+				<< acc[i]->getCreditLevel() << '\n';
+
+			outFile << 1 << '\t'
+				<< acc[i]->GetAccName() << '\t'
+				<< acc[i]->GetDeposits() << '\t'
+				<< acc[i]->GetAccID();
+		}
+		if (i != accNum - 1)
+			outFile << '\n';
 		delete acc[i];
 	}
-
+	outFile.close();
 	delete[] acc;
 }

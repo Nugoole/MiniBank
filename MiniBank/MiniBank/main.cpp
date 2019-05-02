@@ -9,6 +9,7 @@ int main()
 
 	AccountHandler *handler = new AccountHandler;
 	int select;
+	handler->LoadAccountFromFile();
 
 	while (1) {
 		rewind(stdin);

@@ -16,5 +16,5 @@ public:
 
 	void DepositsMoney(int value);
 
-	virtual char getCreditLevel() const { return ' '; };
+	virtual char getCreditLevel() const { return 'D'; };
 };
