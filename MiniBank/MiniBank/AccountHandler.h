@@ -14,6 +14,7 @@ public:
 
 	AccountHandler();
 	void AddAccount();
+	void LoadAccountFromFile();
 
 	BankAccount& operator[](int idx);
 	BankAccount * findAcc(int ID);

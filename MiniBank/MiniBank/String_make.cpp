@@ -1,6 +1,5 @@
 #include "String_make.h"
 
-using namespace str;
 String::String():strLen(0){
 	str = new char;
 	str[0] = '\0';
@@ -60,39 +59,20 @@ bool String::operator ==(const String& str)
 	return strcmp(this->str, str.str);
 }
 
-String& String::operator <<(const String& str)
+ostream& operator <<(ostream& ostm, const String& str)
 {
-	printf("%s", str.str);
-	return *this;
+	ostm << str;
+	return ostm;
 }
 
-String& String::operator <<(const char str)
-{
-	printf("%c", str);
-	return *this;
-}
 
-String& String::operator <<(const char * str)
+istream& operator >> (istream& istm, String& str)
 {
-	printf("%s", str);
-	return *this;
-}
-
-String& String::operator << (String& (*fp)(String& str))
-{
-	return fp(*this);
-}
-
-void String::operator >> (String& str)
-{
-	//std::cout << "input : ";
 	char str_tmp[30];
 
-	std::cin.getline(str_tmp, 30);
-	rewind(stdin);
-
-	String tmp(str_tmp);
-	str = tmp;
+	istm >> str_tmp;
+	str = String(str_tmp);
+	return istm;
 }
 
 String::~String()
@@ -100,12 +80,4 @@ String::~String()
 	if (str != NULL) {
 		delete str;
 	}
-}
-
-str::String& str::endl(String& str)
-{
-	str << '\n';
-	rewind(stdout);
-
-	return str;
 }

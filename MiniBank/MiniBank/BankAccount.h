@@ -3,7 +3,7 @@
 #include "String_make.h"
 #include "Exceptions.h"
 
-using namespace str;
+
 
 class BankAccount
 {
@@ -14,7 +14,7 @@ private:
 	
 
 public:
-	BankAccount(const String& name = "ȫ�浿", int money = 0, int ID = 0);
+	BankAccount(const String name = "ȫ�浿", int money = 0, int ID = 0);
 	int GetDeposits() const;
 	virtual void DepositsMoney(int val);
 	void withdrawMoney(int val);

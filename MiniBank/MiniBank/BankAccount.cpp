@@ -1,7 +1,7 @@
 #include "BankAccount.h"
 
 
-BankAccount::BankAccount(const str::String& name, int money, int ID) 
+BankAccount::BankAccount(const String name, int money, int ID) 
 	:deposits(money), AccountNum(ID)
 {
 	if (money < 0)

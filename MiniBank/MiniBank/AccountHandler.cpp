@@ -1,8 +1,27 @@
 #include "AccountHandler.h"
+#include <fstream>
+
 
 AccountHandler::AccountHandler() :accNum(0) {
 	acc = new BankAccount *[MAX_ACC_NUM];
 }
+
+void AccountHandler::LoadAccountFromFile() {
+	ifstream file;
+	int accType, deposits, accNum;
+	String accName;
+
+	file.open("accountList.txt");
+
+	if (file.fail())
+		std::cout << "파일 열기에 실패했습니다." << endl;
+	else
+	{
+		file >> accType
+			>> accName;
+	}
+}
+
 
 void AccountHandler::AddAccount()
 {
