@@ -17,3 +17,8 @@ void ArrFullException::ShowExceptionMesg()
 	cout << "더 이상 계좌를 생성할 수 없습니다." << endl;
 	cout << "계좌수 최댓값 : " << MAX_ACC_NUM << "개" << endl;
 }
+
+void AccNumException::ShowExceptionMesg()
+{
+	cout << "계좌번호 : " << accNum << "은 이미 있는 계좌번호 입니다." << endl;
+}

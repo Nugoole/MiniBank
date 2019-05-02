@@ -27,6 +27,8 @@ void AccountHandler::AddAccount()
 				if (accNum >= MAX_ACC_NUM)
 					throw ArrFullException();
 
+				
+
 				cout << "계좌 번호를 설정해주세요";
 				cin >> AccountNum;
 				cout << "예금하실 금액을 입력해주세요";
@@ -34,6 +36,9 @@ void AccountHandler::AddAccount()
 				rewind(stdin);
 				cout << "예금주 이름을 입력해주세요";
 				str::cin >> name;
+
+				if (findAcc(AccountNum) != NULL)
+					throw AccNumException(AccountNum);
 
 				acc[accNum] = new NormalAccount(name, deposit, AccountNum);
 
@@ -45,12 +50,17 @@ void AccountHandler::AddAccount()
 				accNum++;
 				break;
 			}
-			catch (ArrFullException expt)
+			catch (AccNumException& expt)
 			{
 				system("cls");
 				expt.ShowExceptionMesg();
 			}
-			catch (NegativeMoneyInputException expt)
+			catch (ArrFullException& expt)
+			{
+				system("cls");
+				expt.ShowExceptionMesg();
+			}
+			catch (NegativeMoneyInputException& expt)
 			{
 				system("cls");
 				expt.ShowExceptionMesg();
@@ -88,6 +98,9 @@ void AccountHandler::AddAccount()
 
 				cout << RoI << endl;
 
+				if (findAcc(AccountNum) != NULL)
+					throw AccNumException(AccountNum);
+
 				acc[accNum] = new HighCreditAccount(name, deposit, AccountNum, RoI);
 
 				cout << "============계좌 개설 완료==============" << endl;
@@ -99,12 +112,17 @@ void AccountHandler::AddAccount()
 				accNum++;
 				break;
 			}
-			catch (ArrFullException expt)
+			catch (AccNumException& expt)
 			{
 				system("cls");
 				expt.ShowExceptionMesg();
 			}
-			catch (NegativeMoneyInputException expt)
+			catch (ArrFullException& expt)
+			{
+				system("cls");
+				expt.ShowExceptionMesg();
+			}
+			catch (NegativeMoneyInputException& expt)
 			{
 				system("cls");
 				expt.ShowExceptionMesg();
@@ -124,6 +142,8 @@ BankAccount& AccountHandler::operator[](int idx)
 
 
 BankAccount * AccountHandler::findAcc(int ID) {
+	if (accNum == 0) return NULL;
+
 	for (int i = 0; i < accNum; i++)
 		if (acc[i]->GetAccID() == ID)
 			return acc[i];
@@ -154,7 +174,7 @@ void AccountHandler::depositMoney()
 			temp->DepositsMoney(dep_money);
 			break;
 		}
-		catch (NegativeMoneyInputException expt)
+		catch (NegativeMoneyInputException& expt)
 		{
 			system("cls");
 			expt.ShowExceptionMesg();
@@ -191,8 +211,12 @@ void AccountHandler::withdrawMoney()
 			cout << "출금 후 잔액 : " << temp->GetDeposits() << endl;
 			break;
 		}
-		catch (WithdrawException expt)
+		catch (WithdrawException& expt)
 		{
+			system("cls");
+			expt.ShowExceptionMesg();
+		}
+		catch (NegativeMoneyInputException& expt) {
 			system("cls");
 			expt.ShowExceptionMesg();
 		}

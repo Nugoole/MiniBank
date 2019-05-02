@@ -31,3 +31,13 @@ public:
 
 	void ShowExceptionMesg();
 };
+
+class AccNumException
+{
+private:
+	int accNum;
+public:
+	AccNumException(int num) :accNum(num) {}
+
+	void ShowExceptionMesg();
+};
