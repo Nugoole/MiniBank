@@ -1,6 +1,5 @@
 #include "AccountHandler.h"
 
-
 AccountHandler::AccountHandler() :accNum(0) {
 	acc = new BankAccount *[MAX_ACC_NUM];
 }
@@ -20,60 +19,97 @@ void AccountHandler::AddAccount()
 
 	if (select == NORMAL)
 	{
-		int AccountNum, deposit;
-		char * name;
-		name = new char[30];
+		while (1) {
+			try {
+				int AccountNum, deposit;
+				String name;
 
-		cout << "계좌 번호를 설정해주세요";
-		cin >> AccountNum;
-		cout << "예금하실 금액을 입력해주세요";
-		cin >> deposit;
-		cout << "예금주 이름을 입력해주세요";
-		cin >> name;
+				if (accNum >= MAX_ACC_NUM)
+					throw ArrFullException();
 
-		acc[accNum] = new NormalAccount(name, deposit, AccountNum);
+				cout << "계좌 번호를 설정해주세요";
+				cin >> AccountNum;
+				cout << "예금하실 금액을 입력해주세요";
+				cin >> deposit;
+				rewind(stdin);
+				cout << "예금주 이름을 입력해주세요";
+				str::cin >> name;
 
-		cout << "============계좌 개설 완료==============" << endl;
-		cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
-		cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
-		str::cout << "예금주명 : " << acc[accNum]->GetAccName() << str::endl;
+				acc[accNum] = new NormalAccount(name, deposit, AccountNum);
 
-		accNum++;
+				cout << "============계좌 개설 완료==============" << endl;
+				cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
+				cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
+				str::cout << "예금주명 : " << acc[accNum]->GetAccName() << str::endl;
+
+				accNum++;
+				break;
+			}
+			catch (ArrFullException expt)
+			{
+				system("cls");
+				expt.ShowExceptionMesg();
+			}
+			catch (NegativeMoneyInputException expt)
+			{
+				system("cls");
+				expt.ShowExceptionMesg();
+			}
+		}
 	}
 	else if (select == CREDIT)
 	{
-		int AccountNum, deposit, RoI;
-		char credit_level;
-		String name;
-		name = new char[30];
-		cout << "계좌 번호를 설정해주세요";
-		cin >> AccountNum;
-		cout << "예금하실 금액을 입력해주세요";
-		cin >> deposit;
-		cout << "예금주 이름을 입력해주세요";
-		str::cin >> name;
-		cout << "현재 신용등급을 골라주세요" << endl;
-		cout << "[등급 목록 : A    B    C ]";
-		cin >> credit_level;
+		while (1) {
+			try {
+				int AccountNum, deposit, RoI;
+				char credit_level;
+				String name;
 
-		if (credit_level == 'A' || credit_level == 'a')
-			RoI = LEVEL_A;
-		else if (credit_level == 'B' || credit_level == 'b')
-			RoI = LEVEL_B;
-		else if (credit_level == 'C' || credit_level == 'c')
-			RoI = LEVEL_C;
+				if (accNum >= MAX_ACC_NUM)
+					throw ArrFullException();
 
-		cout << RoI << endl;
+				cout << "계좌 번호를 설정해주세요";
+				cin >> AccountNum;
+				cout << "예금하실 금액을 입력해주세요";
+				cin >> deposit;
+				rewind(stdin);
+				cout << "예금주 이름을 입력해주세요";
+				str::cin >> name;
+				cout << "현재 신용등급을 골라주세요" << endl;
+				cout << "[등급 목록 : A    B    C ]";
+				cin >> credit_level;
 
-		acc[accNum] = new HighCreditAccount(name, deposit, AccountNum, RoI);
+				if (credit_level == 'A' || credit_level == 'a')
+					RoI = LEVEL_A;
+				else if (credit_level == 'B' || credit_level == 'b')
+					RoI = LEVEL_B;
+				else if (credit_level == 'C' || credit_level == 'c')
+					RoI = LEVEL_C;
 
-		cout << "============계좌 개설 완료==============" << endl;
-		cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
-		cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
-		str::cout << "예금주명 : " << acc[accNum]->GetAccName() << str::endl;
-		cout << "신용등급 : " << acc[accNum]->getCreditLevel() << endl;
+				cout << RoI << endl;
 
-		accNum++;
+				acc[accNum] = new HighCreditAccount(name, deposit, AccountNum, RoI);
+
+				cout << "============계좌 개설 완료==============" << endl;
+				cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
+				cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
+				str::cout << "예금주명 : " << acc[accNum]->GetAccName() << str::endl;
+				cout << "신용등급 : " << acc[accNum]->getCreditLevel() << endl;
+
+				accNum++;
+				break;
+			}
+			catch (ArrFullException expt)
+			{
+				system("cls");
+				expt.ShowExceptionMesg();
+			}
+			catch (NegativeMoneyInputException expt)
+			{
+				system("cls");
+				expt.ShowExceptionMesg();
+			}
+		}
 	}
 }
 
@@ -111,10 +147,19 @@ void AccountHandler::depositMoney()
 		cout << "존재하지 않는 계좌입니다." << endl;
 		return;
 	}
-
-	cout << "예금하실 금액을 입력해주세요. ";
-	cin >> dep_money;
-	temp->DepositsMoney(dep_money);
+	while (1) {
+		cout << "예금하실 금액을 입력해주세요. ";
+		cin >> dep_money;
+		try {
+			temp->DepositsMoney(dep_money);
+			break;
+		}
+		catch (NegativeMoneyInputException expt)
+		{
+			system("cls");
+			expt.ShowExceptionMesg();
+		}
+	}
 
 	cout << "=============예금 완료=================" << endl;
 	cout << "예금 후 잔액 : " << temp->GetDeposits() << endl;
@@ -136,18 +181,22 @@ void AccountHandler::withdrawMoney()
 		return;
 	}
 
-	cout << "출금하실 금액을 입력해주세요. ";
-	cin >> with_money;
-	if (temp->GetDeposits() < with_money)
-	{
-		cout << "잔액이 부족합니다." << endl;
-		return;
+	while (1) {
+		cout << "출금하실 금액을 입력해주세요. ";
+		cin >> with_money;
+		try {
+			temp->withdrawMoney(with_money);
+
+			cout << "=============출금 완료=================" << endl;
+			cout << "출금 후 잔액 : " << temp->GetDeposits() << endl;
+			break;
+		}
+		catch (WithdrawException expt)
+		{
+			system("cls");
+			expt.ShowExceptionMesg();
+		}
 	}
-
-	temp->withdrawMoney(with_money);
-
-	cout << "=============출금 완료=================" << endl;
-	cout << "출금 후 잔액 : " << temp->GetDeposits() << endl;
 }
 
 int AccountHandler::GetAccNum()

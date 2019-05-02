@@ -1,6 +1,7 @@
 #pragma once
 #include "MinibankingCommon.h"
 #include "String_make.h"
+#include "Exceptions.h"
 
 using namespace str;
 

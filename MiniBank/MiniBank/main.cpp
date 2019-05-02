@@ -13,6 +13,7 @@ int main()
 	int select;
 
 	while (1) {
+		rewind(stdin);
 		ShowMenu();
 		cin >> select;
 

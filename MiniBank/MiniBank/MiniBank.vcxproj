@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="AccountHandler.cpp" />
     <ClCompile Include="BankAccount.cpp" />
+    <ClCompile Include="Exceptions.cpp" />
     <ClCompile Include="HighCreditAccount.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NormalAccount.cpp" />

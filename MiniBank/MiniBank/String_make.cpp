@@ -88,7 +88,7 @@ void String::operator >> (String& str)
 	//std::cout << "input : ";
 	char str_tmp[30];
 
-	//std::cin.getline(str_tmp, 30);
+	std::cin.getline(str_tmp, 30);
 	rewind(stdin);
 
 	String tmp(str_tmp);
