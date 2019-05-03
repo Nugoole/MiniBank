@@ -22,6 +22,8 @@ public:
 	String& GetAccName();
 	void printDeposits() const;
 
+	virtual int getFirstDepos() = 0;
+	virtual int  getInterest() = 0;
 	virtual void printNowRoI() const = 0;
 	virtual char getCreditLevel() const = 0;
 

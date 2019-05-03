@@ -1,17 +1,26 @@
 #include "HighCreditAccount.h"
 
-HighCreditAccount::HighCreditAccount(const String name, int money, int ID, int Credit_Level)
-	:BankAccount(name, money, ID), first_deposits(money), additional_RoI(Credit_Level), interest(0) {}
+HighCreditAccount::HighCreditAccount(const String name, int money, int ID, int Credit_Level, int original_dep, int interest)
+	: BankAccount(name, money, ID), first_deposits(original_dep ? original_dep : money), additional_RoI(Credit_Level), interest(interest) {}
 
 void HighCreditAccount::printNowRoI() const {
-	std::cout << "현재 이자는 " << interest << "원 입니다. " << endl;
+	cout << "현재 이자는 " << interest << "원 입니다. " << endl;
+}
+
+int HighCreditAccount::getFirstDepos() {
+	return first_deposits;
+}
+
+int HighCreditAccount::getInterest()
+{
+	return interest;
 }
 
 void HighCreditAccount::DepositsMoney(int value)
 {
 	BankAccount::DepositsMoney(value);
 	interest += (int)(value * ((double)(additional_RoI/100) + RoI/100));
-	std::cout << interest << endl;
+	cout << interest << endl;
 }
 
 char HighCreditAccount::getCreditLevel() const

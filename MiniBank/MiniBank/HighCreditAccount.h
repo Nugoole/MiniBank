@@ -11,11 +11,15 @@ private:
 	int interest;
 
 public:
-	HighCreditAccount(const String name, int money, int ID, int Credit_Level);
+	HighCreditAccount(const String name, int money, int ID, int Credit_Level, int original_dep = 0, int interest = 0);
+
+	int  getInterest();
 
 	void printNowRoI() const;
 
 	void DepositsMoney(int value);
+
+	int getFirstDepos();
 
 	char getCreditLevel() const;
 };

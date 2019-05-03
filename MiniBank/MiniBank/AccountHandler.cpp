@@ -10,9 +10,10 @@ void AccountHandler::LoadAccountFromFile() {
 	ifstream file;
 	int accType, deposits, accNo;
 	String accName;
+	int interest, original_depos;
 	int accGrade;
 
-	file.open("C:/Users/jundo/source/repos/MiniBank/MiniBank/MiniBank/accountList.txt");
+	file.open("accountList.txt");
 
 	if (file.fail())
 	{
@@ -31,13 +32,15 @@ void AccountHandler::LoadAccountFromFile() {
 			{
 				file >> accName
 					>> deposits
+					>> interest
 					>> accNo;
 
 				cout << accName
 					<< deposits
+					<< interest
 					<< accNo;
 				getchar();
-				acc[accNum] = new NormalAccount(accName, deposits, accNo);
+				acc[accNum] = new NormalAccount(accName, deposits, accNo,interest);
 				accNum++;
 			}
 			else if (accType == 2)
@@ -45,14 +48,24 @@ void AccountHandler::LoadAccountFromFile() {
 				file >> accName
 					>> deposits
 					>> accNo
+					>> interest
+					>> original_depos
 					>> accGrade;
 				cout << accName
 					<< deposits
+					<< interest
 					<< accNo
 					<< accGrade;
 
+				if (accGrade == 1)
+					accGrade = LEVEL_A;
+				else if (accGrade == 2)
+					accGrade = LEVEL_B;
+				else if (accGrade == 3)
+					accGrade = LEVEL_C;
+
 				getchar();
-				acc[accNum] = new HighCreditAccount(accName, deposits, accNo, accGrade);
+				acc[accNum] = new HighCreditAccount(accName, deposits, accNo, accGrade,original_depos,interest);
 				accNum++;
 			}
 		} while (!file.eof());
@@ -288,9 +301,17 @@ void AccountHandler::ShowAllAccDeposits()
 {
 	for (int i = 0; i < accNum; i++)
 	{
+		if (acc[i]->getCreditLevel() == 'D')
+			cout << "<===== ÀÏ¹Ý °í°´ =====>" << endl;
+		else
+		{
+			cout << "<===== ½Å¿ë °í°´ =====>" << endl;
+			cout << "°í°´ µî±Þ : " << acc[i]->getCreditLevel() << endl;
+		}
 		cout << acc[i]->GetAccName() << " ´ÔÀÇ ";
 		acc[i]->printDeposits();
 		acc[i]->printNowRoI();
+		cout << endl;
 	}
 }
 
@@ -298,7 +319,7 @@ void AccountHandler::ShowAllAccDeposits()
 AccountHandler::~AccountHandler()
 {
 	ofstream outFile;
-	outFile.open("accountList.txt", ofstream::in | ofstream::trunc);
+	outFile.open("accountList.txt", ofstream::in | ofstream::out| ofstream::trunc);
 
 	for (int i = 0; i < accNum; i++)
 	{
@@ -308,24 +329,28 @@ AccountHandler::~AccountHandler()
 			cout << acc[i]->GetAccName() << '\t'
 				<< acc[i]->GetDeposits() << '\t'
 				<< acc[i]->GetAccID() << '\t'
-				<< (int)((int)acc[i]->getCreditLevel() - 64) << '\n';
+				<< acc[i]->getInterest() << '\t'
+				<< acc[i]->getFirstDepos() << '\t'
+				<< ((int)acc[i]->getCreditLevel() - 64) << '\n';
 
 			outFile << 2 << '\t'
 				<< acc[i]->GetAccName() << '\t'
 				<< acc[i]->GetDeposits() << '\t'
 				<< acc[i]->GetAccID() << '\t'
-				<< (int)((int)acc[i]->getCreditLevel() - 64);
+				<< acc[i]->getInterest() << '\t'
+				<< acc[i]->getFirstDepos() << '\t'
+				<< ((int)acc[i]->getCreditLevel() - 64);
 		}
 		else
 		{
 			cout << acc[i]->GetAccName() << '\t'
 				<< acc[i]->GetDeposits() << '\t'
-				<< acc[i]->GetAccID() << '\t'
-				<< acc[i]->getCreditLevel() << '\n';
+				<< acc[i]->GetAccID() << '\n';
 
 			outFile << 1 << '\t'
 				<< acc[i]->GetAccName() << '\t'
 				<< acc[i]->GetDeposits() << '\t'
+				<< acc[i]->getInterest() << '\t'
 				<< acc[i]->GetAccID();
 		}
 		if (i != accNum - 1)
