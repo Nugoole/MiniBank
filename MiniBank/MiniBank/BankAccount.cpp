@@ -29,7 +29,7 @@ void BankAccount::withdrawMoney(int val)
 		throw WithdrawException(val);
 
 	deposits -= val;
-	std::cout << "출금 후 잔액 : " << deposits << endl;	
+	cout << "출금 후 잔액 : " << deposits << endl;	
 }
 
 int BankAccount::GetAccID() {
@@ -42,7 +42,7 @@ String& BankAccount::GetAccName()
 }
 void BankAccount::printDeposits() const
 {
-	std::cout << "잔액은 " << deposits << " 원 입니다." << endl;
+	cout << "잔액은 " << deposits << " 원 입니다." << endl;
 }
 
 BankAccount::~BankAccount() {

@@ -16,5 +16,5 @@ void NormalAccount::DepositsMoney(int value)
 {
 	BankAccount::DepositsMoney(value);
 	interest += (int)(value * RoI/100);
-	std::cout << interest << endl;
+	cout << interest << endl;
 }

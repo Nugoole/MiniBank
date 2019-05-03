@@ -18,7 +18,6 @@ void AccountHandler::LoadAccountFromFile() {
 	if (file.fail())
 	{
 		cout << "파일 열기에 실패했습니다." << endl;
-		getchar();
 	}
 	else
 	{
@@ -26,7 +25,7 @@ void AccountHandler::LoadAccountFromFile() {
 			file >> accType;
 
 			cout << accType;
-			getchar();
+
 			//일반 계좌
 			if (accType == 1)
 			{
@@ -39,7 +38,7 @@ void AccountHandler::LoadAccountFromFile() {
 					<< deposits
 					<< interest
 					<< accNo;
-				getchar();
+
 				acc[accNum] = new NormalAccount(accName, deposits, accNo,interest);
 				accNum++;
 			}
@@ -64,7 +63,6 @@ void AccountHandler::LoadAccountFromFile() {
 				else if (accGrade == 3)
 					accGrade = LEVEL_C;
 
-				getchar();
 				acc[accNum] = new HighCreditAccount(accName, deposits, accNo, accGrade,original_depos,interest);
 				accNum++;
 			}
@@ -76,10 +74,6 @@ void AccountHandler::LoadAccountFromFile() {
 
 void AccountHandler::AddAccount()
 {
-	using std::cout;
-	using std::cin;
-	using std::endl;
-
 	int select;
 
 	cout << "어떤 유형의 계좌를 개설하시겠습니까?" << endl;
@@ -111,7 +105,7 @@ void AccountHandler::AddAccount()
 					throw AccNumException(AccountNum);
 
 				acc[accNum] = new NormalAccount(name, deposit, AccountNum);
-				cout << sizeof(*acc[accNum]);
+
 				cout << "============계좌 개설 완료==============" << endl;
 				cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
 				cout << "초기 예금액 :" << acc[accNum]->GetDeposits() << endl;
@@ -170,7 +164,6 @@ void AccountHandler::AddAccount()
 					throw AccNumException(AccountNum);
 
 				acc[accNum] = new HighCreditAccount(name, deposit, AccountNum, RoI);
-				cout << sizeof(*acc[accNum]);
 
 				cout << "============계좌 개설 완료==============" << endl;
 				cout << "계좌 번호 : " << acc[accNum]->GetAccID() << endl;
@@ -308,6 +301,7 @@ void AccountHandler::ShowAllAccDeposits()
 			cout << "<===== 신용 고객 =====>" << endl;
 			cout << "고객 등급 : " << acc[i]->getCreditLevel() << endl;
 		}
+
 		cout << acc[i]->GetAccName() << " 님의 ";
 		acc[i]->printDeposits();
 		acc[i]->printNowRoI();
@@ -323,16 +317,8 @@ AccountHandler::~AccountHandler()
 
 	for (int i = 0; i < accNum; i++)
 	{
-
 		if (acc[i]->getCreditLevel() != 'D')
 		{
-			cout << acc[i]->GetAccName() << '\t'
-				<< acc[i]->GetDeposits() << '\t'
-				<< acc[i]->GetAccID() << '\t'
-				<< acc[i]->getInterest() << '\t'
-				<< acc[i]->getFirstDepos() << '\t'
-				<< ((int)acc[i]->getCreditLevel() - 64) << '\n';
-
 			outFile << 2 << '\t'
 				<< acc[i]->GetAccName() << '\t'
 				<< acc[i]->GetDeposits() << '\t'
@@ -343,10 +329,6 @@ AccountHandler::~AccountHandler()
 		}
 		else
 		{
-			cout << acc[i]->GetAccName() << '\t'
-				<< acc[i]->GetDeposits() << '\t'
-				<< acc[i]->GetAccID() << '\n';
-
 			outFile << 1 << '\t'
 				<< acc[i]->GetAccName() << '\t'
 				<< acc[i]->GetDeposits() << '\t'

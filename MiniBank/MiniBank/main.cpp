@@ -47,8 +47,6 @@ int main()
 }
 
 void ShowMenu(void) {
-	using std::cout;
-	using std::cin;
 
 	system("cls");
 	cout << "-----------Menu-------------" << endl;
