@@ -7,7 +7,7 @@ enum { MAKE = 1, DEPOSIT, WITHDRAW, INQUIRE, EXIT};
 int main()
 {
 
-	AccountHandler<BankAccount> *handler = new AccountHandler<BankAccount>;
+	AccountHandler<BnkPtr> *handler = new AccountHandler<BnkPtr>;
 	int select;
 	handler->LoadAccountFromFile();
 

@@ -3,13 +3,13 @@
 #include "HighCreditAccount.h"
 #include "Exceptions.h"
 
-
+typedef BankAccount * BnkPtr;
 
 template <typename T>
 class AccountHandler
 {
 private:
-	T** acc;
+	T* acc;
 	int accNum;
 
 public:
@@ -19,9 +19,9 @@ public:
 	void AddAccount();
 	void LoadAccountFromFile();
 
-	T& operator[](int idx);
+	BankAccount& operator[](int idx);
 
-	T* findAcc(int ID);
+	T findAcc(int ID);
 	void depositMoney();
 	int GetAccNum();
 	void withdrawMoney();

@@ -3,7 +3,7 @@
 
 template <typename T>
 AccountHandler<T>::AccountHandler() :accNum(0) {
-	acc = new BankAccount *[MAX_ACC_NUM];
+	acc = new T *[MAX_ACC_NUM];
 }
 
 template <typename T>
@@ -174,7 +174,7 @@ void AccountHandler<T>::AddAccount()
 }
 
 template <typename T>
-T& AccountHandler<T>::operator[](int idx)
+BankAccount& AccountHandler<T>::operator[](int idx)
 {
 	if (idx < 0 || idx >= accNum)
 	{
@@ -184,7 +184,7 @@ T& AccountHandler<T>::operator[](int idx)
 }
 
 template <typename T>
-T* AccountHandler<T>::findAcc(int ID) {
+T AccountHandler<T>::findAcc(int ID) {
 	if (accNum == 0) return NULL;
 
 	for (int i = 0; i < accNum; i++)
@@ -205,7 +205,7 @@ void AccountHandler<T>::depositMoney()
 	cout << "예금하실 계좌번호를 입력해주세요";
 	cin >> ID;
 
-	BankAccount * temp = findAcc(ID);
+	T * temp = findAcc(ID);
 	if (temp == NULL)
 	{
 		cout << "존재하지 않는 계좌입니다." << endl;
