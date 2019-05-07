@@ -1,4 +1,4 @@
-#include "AccountHandler.h"
+#include "AccountHandler.cpp"
 
 void ShowMenu(void);
 
@@ -7,7 +7,7 @@ enum { MAKE = 1, DEPOSIT, WITHDRAW, INQUIRE, EXIT};
 int main()
 {
 
-	AccountHandler *handler = new AccountHandler;
+	AccountHandler<BankAccount> *handler = new AccountHandler<BankAccount>;
 	int select;
 	handler->LoadAccountFromFile();
 

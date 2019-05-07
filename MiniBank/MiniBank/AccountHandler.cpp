@@ -1,12 +1,14 @@
 #include "AccountHandler.h"
 #include <fstream>
 
-//TODO : 파일 마지막에 입력할 때 이자 돈을 기본액에 추가해서 저장하기
-AccountHandler::AccountHandler() :accNum(0) {
+template <typename T>
+AccountHandler<T>::AccountHandler() :accNum(0) {
 	acc = new BankAccount *[MAX_ACC_NUM];
 }
 
-void AccountHandler::LoadAccountFromFile() {
+template <typename T>
+void AccountHandler<T>::LoadAccountFromFile() {
+
 	ifstream file;
 	int accType, deposits, accNo;
 	String accName;
@@ -71,8 +73,8 @@ void AccountHandler::LoadAccountFromFile() {
 	}
 }
 
-
-void AccountHandler::AddAccount()
+template <typename T>
+void AccountHandler<T>::AddAccount()
 {
 	int select;
 
@@ -90,8 +92,6 @@ void AccountHandler::AddAccount()
 
 				if (accNum >= MAX_ACC_NUM)
 					throw ArrFullException();
-
-				
 
 				cout << "계좌 번호를 설정해주세요";
 				cin >> AccountNum;
@@ -114,17 +114,7 @@ void AccountHandler::AddAccount()
 				accNum++;
 				break;
 			}
-			catch (AccNumException& expt)
-			{
-				system("cls");
-				expt.ShowExceptionMesg();
-			}
-			catch (ArrFullException& expt)
-			{
-				system("cls");
-				expt.ShowExceptionMesg();
-			}
-			catch (NegativeMoneyInputException& expt)
+			catch (Exceptions& expt)
 			{
 				system("cls");
 				expt.ShowExceptionMesg();
@@ -174,17 +164,7 @@ void AccountHandler::AddAccount()
 				accNum++;
 				break;
 			}
-			catch (AccNumException& expt)
-			{
-				system("cls");
-				expt.ShowExceptionMesg();
-			}
-			catch (ArrFullException& expt)
-			{
-				system("cls");
-				expt.ShowExceptionMesg();
-			}
-			catch (NegativeMoneyInputException& expt)
+			catch (Exceptions& expt)
 			{
 				system("cls");
 				expt.ShowExceptionMesg();
@@ -193,7 +173,8 @@ void AccountHandler::AddAccount()
 	}
 }
 
-BankAccount& AccountHandler::operator[](int idx)
+template <typename T>
+T& AccountHandler<T>::operator[](int idx)
 {
 	if (idx < 0 || idx >= accNum)
 	{
@@ -202,8 +183,8 @@ BankAccount& AccountHandler::operator[](int idx)
 	return *acc[idx];
 }
 
-
-BankAccount * AccountHandler::findAcc(int ID) {
+template <typename T>
+T* AccountHandler<T>::findAcc(int ID) {
 	if (accNum == 0) return NULL;
 
 	for (int i = 0; i < accNum; i++)
@@ -214,7 +195,8 @@ BankAccount * AccountHandler::findAcc(int ID) {
 }
 
 
-void AccountHandler::depositMoney()
+template <typename T>
+void AccountHandler<T>::depositMoney()
 {
 	using std::cout;
 	using std::cin;
@@ -236,7 +218,7 @@ void AccountHandler::depositMoney()
 			temp->DepositsMoney(dep_money);
 			break;
 		}
-		catch (NegativeMoneyInputException& expt)
+		catch (Exceptions& expt)
 		{
 			system("cls");
 			expt.ShowExceptionMesg();
@@ -247,11 +229,10 @@ void AccountHandler::depositMoney()
 	cout << "예금 후 잔액 : " << temp->GetDeposits() << endl;
 }
 
-void AccountHandler::withdrawMoney()
-{
-	using std::cout;
-	using std::cin;
 
+template <typename T>
+void AccountHandler<T>::withdrawMoney()
+{
 	int ID, with_money;
 	cout << "출금하실 계좌번호를 입력해주세요";
 	cin >> ID;
@@ -273,24 +254,22 @@ void AccountHandler::withdrawMoney()
 			cout << "출금 후 잔액 : " << temp->GetDeposits() << endl;
 			break;
 		}
-		catch (WithdrawException& expt)
+		catch (Exceptions& expt)
 		{
-			system("cls");
-			expt.ShowExceptionMesg();
-		}
-		catch (NegativeMoneyInputException& expt) {
 			system("cls");
 			expt.ShowExceptionMesg();
 		}
 	}
 }
 
-int AccountHandler::GetAccNum()
+template <typename T>
+int AccountHandler<T>::GetAccNum()
 {
 	return accNum;
 }
 
-void AccountHandler::ShowAllAccDeposits()
+template <typename T>
+void AccountHandler<T>::ShowAllAccDeposits()
 {
 	for (int i = 0; i < accNum; i++)
 	{
@@ -309,8 +288,8 @@ void AccountHandler::ShowAllAccDeposits()
 	}
 }
 
-
-AccountHandler::~AccountHandler()
+template <typename T>
+AccountHandler<T>::~AccountHandler()
 {
 	ofstream outFile;
 	outFile.open("accountList.txt", ofstream::in | ofstream::out| ofstream::trunc);

@@ -1,8 +1,13 @@
 #pragma once
 #include "MinibankingCommon.h"
 
+class Exceptions
+{
+public:
+	virtual void ShowExceptionMesg() {};
+};
 
-class WithdrawException 
+class WithdrawException : public Exceptions
 {
 private:
 	int withdrawMoney;
@@ -14,7 +19,7 @@ public:
 	void ShowExceptionMesg();
 };
 
-class NegativeMoneyInputException 
+class NegativeMoneyInputException : public Exceptions
 {
 private:
 	int inp_money;
@@ -25,7 +30,7 @@ public:
 	void ShowExceptionMesg();
 };
 
-class ArrFullException 
+class ArrFullException : public Exceptions
 {
 public:
 	ArrFullException() {}
@@ -33,7 +38,7 @@ public:
 	void ShowExceptionMesg();
 };
 
-class AccNumException
+class AccNumException : public Exceptions
 {
 private:
 	int accNum;
