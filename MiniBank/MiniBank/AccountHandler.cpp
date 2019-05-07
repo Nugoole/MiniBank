@@ -3,7 +3,7 @@
 
 template <typename T>
 AccountHandler<T>::AccountHandler() :accNum(0) {
-	acc = new T *[MAX_ACC_NUM];
+	acc = new T [MAX_ACC_NUM];
 }
 
 template <typename T>
@@ -205,7 +205,7 @@ void AccountHandler<T>::depositMoney()
 	cout << "예금하실 계좌번호를 입력해주세요";
 	cin >> ID;
 
-	T * temp = findAcc(ID);
+	T  temp = findAcc(ID);
 	if (temp == NULL)
 	{
 		cout << "존재하지 않는 계좌입니다." << endl;
